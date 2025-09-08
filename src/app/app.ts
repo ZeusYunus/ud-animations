@@ -1,12 +1,43 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { trigger, state, style } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css'],
+  animations: [
+    trigger('divState', [
+      state(
+        'normal',
+        style({
+          'background-color': 'red',
+          transform: 'translateX(0)',
+        })
+      ),
+      state(
+        'highlighted',
+        style({
+          'background-color': 'blue',
+          transform: 'translateX(100px)',
+        })
+      ),
+    ]),
+  ],
 })
 export class App {
-  protected readonly title = signal('ud-animations');
+  state = signal<'normal' | 'highlighted'>('normal');
+  list = signal<string[]>(['Milk', 'Sugar', 'Bread']);
+
+  onAdd(item: string) {
+    if (item.trim()) {
+      this.list.update((list) => [...list, item]);
+    }
+  }
+
+  onDelete(item: string) {
+    this.list.update((list) => list.filter((i) => i !== item));
+  }
 }
