@@ -25,12 +25,40 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         })
       ),
       transition('normal <=> highlighted', animate(300)),
-      transition('highlighted <=> normal', animate(1000))
+      // transition('highlighted => normal', animate(1000))
+    ]),
+    trigger('wildState', [
+      state(
+        'normal',
+        style({
+          'background-color': 'red',
+          transform: 'translateX(100) scale(1)',
+        })
+      ),
+      state(
+        'highlighted',
+        style({
+          'background-color': 'blue',
+          transform: 'translateX(100px) scale(1)',
+        })
+      ),
+      state(
+        'shrunken',
+        style({
+          'background-color': 'green',
+          transform: 'translateX(100px) scale(0.5)',
+        })
+      ),
+      // transition('normal <=> highlighted', animate(300)),
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(800)),
+      transition('shrunken <=> *', animate(500))
     ]),
   ],
 })
 export class App {
   state = signal<'normal' | 'highlighted'>('normal');
+  wildState = signal<'normal' | 'highlighted' | 'shrunken'>('normal');
   list = signal<string[]>(['Milk', 'Sugar', 'Bread']);
 
   onAdd(item: string) {
@@ -45,7 +73,10 @@ export class App {
 
   onAnimate() {
     this.state.set(this.state() === 'normal' ? 'highlighted' : 'normal');
+    this.wildState.set(this.wildState() === 'normal' ? 'highlighted' : 'normal');
   }
 
-  onShrink() {}
+  onShrink() {
+    this.wildState.set('shrunken');
+  }
 }
