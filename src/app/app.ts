@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { trigger, state, style } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +24,8 @@ import { trigger, state, style } from '@angular/animations';
           transform: 'translateX(100px)',
         })
       ),
+      transition('normal <=> highlighted', animate(300)),
+      transition('highlighted <=> normal', animate(1000))
     ]),
   ],
 })
