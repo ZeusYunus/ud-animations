@@ -40,4 +40,10 @@ export class App {
   onDelete(item: string) {
     this.list.update((list) => list.filter((i) => i !== item));
   }
+
+  onAnimate() {
+    this.state.set(this.state() === 'normal' ? 'highlighted' : 'normal');
+  }
+
+  onShrink() {}
 }
