@@ -133,4 +133,12 @@ export class App {
   onShrink() {
     this.wildState.set('shrunken');
   }
+
+  animateStarted(event: any) {
+    console.log(event);
+  }
+
+  animateEnded(event: any) {
+    console.log(event);
+  }
 }
