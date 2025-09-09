@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -72,6 +72,29 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
           transform: 'translateX(-100px)',
         }),
         animate(300)
+      ]),
+      transition('* => void', [
+        animate(300, style({
+          tranform: 'translateX(100px)',
+          opacity: 0
+        }))
+      ]),
+    ]),
+    trigger('list2', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          transform: 'translateX(0)',
+        })
+      ),
+      transition('void => *', [
+        animate(1000, keyframes([
+          style({ tranform: 'translateX(-100px)', opacity: 0, offset: 0 }),
+          style({ tranform: 'translateX(-50px)', opacity: 0.5, offset: 0.3 }),
+          style({ tranform: 'translateX(-20px)', opacity: 1, offset: 0.8 }),
+          style({ tranform: 'translateX(0)', opacity: 1, offset: 1 }),
+        ]))
       ]),
       transition('* => void', [
         animate(300, style({
