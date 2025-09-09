@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>Animations</h1>
-      <button class="btn btn-primary" (click)="onAnimate()">Animate!</button>
+      <button class="btn btn-primary me-2" (click)="onAnimate()">Animate!</button>
       <button class="btn btn-primary" (click)="onShrink()">Shrink!</button>
       <hr>
       <div style="width: 100px; height: 100px;" [@divState]="state()"></div>
@@ -14,13 +14,17 @@
   <hr>
 
   <div class="row">
-    <div class="col-xs-12">
-      <input type="text" #input>
+    <div class="col-auto">
+      <input type="text" class="form-control me-2" #input>
+    </div>
+    <div class="col-auto">
       <button class="btn btn-primary" (click)="onAdd(input.value)">Add Item!</button>
+    </div>
+    <div class="col-12">
       <hr>
       <ul class="list-group">
         @for (item of list(); track item) {
-        <li class="list-group-item" (click)="onDelete(item)">
+        <li class="list-group-item" (click)="onDelete(item)" [@list1]="">
           {{ item }}
         </li>
         }
